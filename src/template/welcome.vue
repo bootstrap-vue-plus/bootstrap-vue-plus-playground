@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, version as vueVersion } from 'vue'
 import { version as EpVersion } from 'element-plus'
-import { ElementPlus } from '@element-plus/icons-vue'
+import { Bootstrap } from '@bootstrap-vue-plus/icons-vue'
 
 const msg = ref('Hello World!')
 </script>
@@ -11,7 +11,8 @@ const msg = ref('Hello World!')
   <el-input v-model="msg" />
 
   <p>
-    <el-icon color="var(--el-color-primary)"><ElementPlus /></el-icon>
-    Element Plus {{ EpVersion }} + Vue {{ vueVersion }}
+    <el-icon color="var(--el-color-primary)"><Bootstrap /></el-icon>
+    Bootstrap Vue Plus {{ EpVersion }} + Vue
+    {{ vueVersion }}
   </p>
 </template>

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {
+  getSupportedBootstrapVersions,
   getSupportedEpVersions,
   getSupportedVueVersions,
-} from '../utils/dependency'
+} from '@/utils/dependency'
 import type { ComputedRef } from 'vue'
 import type { ReplStore, VersionKey } from '@/composables/store'
 
@@ -28,6 +29,11 @@ const versions = reactive<Record<VersionKey, Version>>({
     text: 'Bootstrap Vue Plus',
     published: getSupportedEpVersions($$(nightly)),
     active: store.versions.bootstrapVuePlus,
+  },
+  bootstrap: {
+    text: 'Bootstrap',
+    published: getSupportedBootstrapVersions(),
+    active: store.versions.bootstrap,
   },
   vue: {
     text: 'Vue',

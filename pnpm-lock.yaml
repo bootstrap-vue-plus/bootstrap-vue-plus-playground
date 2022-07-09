@@ -7,10 +7,11 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.30.3
   '@typescript-eslint/parser': ^5.30.3
   '@vitejs/plugin-vue': ^2.3.3
-  '@vue/repl': 1.1.1
+  '@vue/repl': 1.3.0
   '@vue/runtime-core': ^3.2.37
   '@vue/tsconfig': ^0.1.3
   '@vueuse/core': ^8.7.4
+  bootstrap: 4.6.1
   bumpp: ^8.2.1
   compare-versions: ^4.1.3
   element-plus: ^2.2.6
@@ -19,7 +20,9 @@ specifiers:
   eslint-define-config: ^1.5.1
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-vue: ^9.1.1
+  jquery: 1.9.1
   local-pkg: ^0.4.1
+  popper.js: 1.16.1
   prettier: ^2.7.1
   sass: ^1.52.3
   typescript: ^4.7.4
@@ -32,10 +35,13 @@ specifiers:
   vue-tsc: ^0.38.1
 
 dependencies:
-  '@vue/repl': 1.1.1_vue@3.2.37
+  '@vue/repl': 1.3.0_vue@3.2.37
   '@vueuse/core': 8.7.4_vue@3.2.37
+  bootstrap: 4.6.1_jquery@1.9.1+popper.js@1.16.1
   compare-versions: 4.1.3
   element-plus: 2.2.6_vue@3.2.37
+  jquery: 1.9.1
+  popper.js: 1.16.1
   vue: 3.2.37
 
 devDependencies:
@@ -591,8 +597,8 @@ packages:
     dependencies:
       '@vue/shared': 3.2.37
 
-  /@vue/repl/1.1.1_vue@3.2.37:
-    resolution: {integrity: sha512-PrgzaCQQ4ME2UD8iGvCxtznc5lB/FaQtzTWJgimo+kQ/AmCG7OeJzuhjRi9BRmtx0PN9UYmRd1mDQD6lhWEUpg==}
+  /@vue/repl/1.3.0_vue@3.2.37:
+    resolution: {integrity: sha512-L2Jr9+M6z2+gW6i5ZuUXwCMfXtyHDSSyw4fViL0QezXLLOctqTw+o6sYUsgvErkreb9oI0kcZPpWkkW7lGeuiA==}
     peerDependencies:
       vue: ^3.2.13
     dependencies:
@@ -741,6 +747,16 @@ packages:
   /boolbase/1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
     dev: true
+
+  /bootstrap/4.6.1_jquery@1.9.1+popper.js@1.16.1:
+    resolution: {integrity: sha512-0dj+VgI9Ecom+rvvpNZ4MUZJz8dcX7WCX+eTID9+/8HgOkv3dsRzi8BGeZJCQU6flWQVYxwTQnEZFrmJSEO7og==}
+    peerDependencies:
+      jquery: 1.9.1 - 3
+      popper.js: ^1.16.1
+    dependencies:
+      jquery: 1.9.1
+      popper.js: 1.16.1
+    dev: false
 
   /brace-expansion/1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -1581,6 +1597,10 @@ packages:
     hasBin: true
     dev: true
 
+  /jquery/1.9.1:
+    resolution: {integrity: sha512-gK7jP5cOEUzjyL0dy7MEMfeSFlmt1yNSdZK98CL8W6o0DiNVW5O9hLcD2bdl48mL8q7bEJgd7d9AhhDaN+iDSQ==}
+    dev: false
+
   /js-yaml/4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
     hasBin: true
@@ -1880,6 +1900,11 @@ packages:
       mlly: 0.3.19
       pathe: 0.2.0
     dev: true
+
+  /popper.js/1.16.1:
+    resolution: {integrity: sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==}
+    deprecated: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
+    dev: false
 
   /postcss-selector-parser/6.0.10:
     resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}

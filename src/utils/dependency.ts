@@ -47,7 +47,7 @@ export const genVueLink = (version: string) => {
 }
 
 export const genImportMap = (
-  { vue, bootstrapVuePlus }: Partial<Versions> = {},
+  { vue, bootstrapVuePlus, bootstrap }: Partial<Versions> = {},
   nightly: boolean
 ): ImportMap => {
   const deps: Record<string, Dependency> = {
@@ -70,8 +70,18 @@ export const genImportMap = (
       version: bootstrapVuePlus,
       path: '/',
     },
-    '@element-plus/icons-vue': {
-      version: '2',
+    bootstrap: {
+      pkg: 'bootstrap',
+      version: bootstrap,
+      path: '/dist/css/bootstrap.min.css',
+    },
+    'bootstrap/': {
+      pkg: 'bootstrap',
+      version: bootstrap,
+      path: '/',
+    },
+    '@bootstrap-vue-plus/icons-vue': {
+      version: '0.0.0-alpha.1',
       path: '/dist/index.min.js',
     },
   }
@@ -112,5 +122,14 @@ export const getSupportedEpVersions = (nightly: MaybeRef<boolean>) => {
   return computed(() => {
     if (unref(nightly)) return versions
     return versions.filter((version) => compare(version, '1.1.0-beta.18', '>='))
+  })
+}
+
+export const getSupportedBootstrapVersions = () => {
+  const versions = $(getVersions('bootstrap'))
+  return computed(() => {
+    return versions
+      .filter((version) => compare(version, '4.0.0', '>='))
+      .filter((version) => compare(version, '4.6.1', '<='))
   })
 }

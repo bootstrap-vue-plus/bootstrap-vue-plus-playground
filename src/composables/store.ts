@@ -1,18 +1,19 @@
-import {compileFile, File, type Store, type StoreState} from '@vue/repl'
-import {atou, utoa} from '@/utils/encode'
-import {genCdnLink, genImportMap, genVueLink} from '@/utils/dependency'
-import {type ImportMap, mergeImportMap} from '@/utils/import-map'
-import {IS_DEV} from '@/constants'
+import { compileFile, File, type Store, type StoreState } from '@vue/repl'
+import { atou, utoa } from '@/utils/encode'
+import { genCdnLink, genImportMap, genVueLink } from '@/utils/dependency'
+import { type ImportMap, mergeImportMap } from '@/utils/import-map'
+import { IS_DEV } from '@/constants'
 import mainCode from '../template/main.vue?raw'
 import welcomeCode from '../template/welcome.vue?raw'
 import bootstrapVuePlusCode from '../template/bootstrap-vue-plus.js?raw'
+import bootstrapCode from '../template/bootstrap.js?raw'
 
 export interface Initial {
   serializedState?: string
   versions?: Versions
   userOptions?: UserOptions
 }
-export type VersionKey = 'vue' | 'bootstrapVuePlus'
+export type VersionKey = 'vue' | 'bootstrapVuePlus' | 'bootstrap'
 export type Versions = Record<VersionKey, string>
 export interface UserOptions {
   styleSource?: string
@@ -25,12 +26,17 @@ export type SerializeState = Record<string, string> & {
 const MAIN_FILE = 'PlaygroundMain.vue'
 const APP_FILE = 'App.vue'
 const ELEMENT_PLUS_FILE = 'bootstrap-vue-plus.js'
+const BOOTSTRAP_FILE = 'bootstrap.js'
 const IMPORT_MAP = 'import-map.json'
 export const USER_IMPORT_MAP = 'import_map.json'
 
 export const useStore = (initial: Initial) => {
   const versions = reactive(
-    initial.versions || { vue: 'latest', bootstrapVuePlus: 'latest' }
+    initial.versions || {
+      vue: 'latest',
+      bootstrapVuePlus: 'latest',
+      bootstrap: '4.6.1',
+    }
   )
 
   let compiler = $(shallowRef<typeof import('vue/compiler-sfc')>())
@@ -113,6 +119,28 @@ export const useStore = (initial: Initial) => {
           '/dist/index.css'
         )
     return bootstrapVuePlusCode.replace('#STYLE#', style)
+  }
+
+  watch(
+    () => versions.bootstrap,
+    (version) => {
+      console.log('versions.bootstrap', version)
+      const file = new File(
+        BOOTSTRAP_FILE,
+        generateBootstrapCode(version, userOptions.styleSource).trim(),
+        hideFile
+      )
+      state.files[BOOTSTRAP_FILE] = file
+      compileFile(store, file)
+    },
+    { immediate: true }
+  )
+
+  function generateBootstrapCode(version: string, styleSource?: string) {
+    const style = styleSource
+      ? styleSource.replace('#VERSION#', version)
+      : genCdnLink('bootstrap', version, '/dist/css/bootstrap.css')
+    return bootstrapCode.replace('#BOOTSTRAP_STYLE#', style)
   }
 
   async function setVueVersion(version: string) {
@@ -237,11 +265,18 @@ export const useStore = (initial: Initial) => {
       case 'vue':
         await setVueVersion(version)
         break
+      case 'bootstrap':
+        await setBootstrapVersion(version)
+        break
     }
   }
 
   function setBootstrapVuePlusVersion(version: string) {
     versions.bootstrapVuePlus = version
+  }
+
+  function setBootstrapVersion(version: string) {
+    versions.bootstrap = version
   }
 
   return {
